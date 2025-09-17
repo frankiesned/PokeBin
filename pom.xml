@@ -8,6 +8,24 @@
     <artifactId>PokeBin</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.tcgdex</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+    </dependencies>
+
+
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
