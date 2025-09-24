@@ -1,5 +1,5 @@
 CS370 Group Project
-Group #: 3
+Group #3
 
 Frankie Snedecor
 Lucas Lazaroiu
