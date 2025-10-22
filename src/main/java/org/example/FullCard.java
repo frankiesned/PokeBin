@@ -1,6 +1,5 @@
 package org.example;
 import java.util.List;
-import java.util.Map;
 
 public class FullCard {
     private String category;
@@ -12,17 +11,8 @@ public class FullCard {
     private String rarity;
     private Set set;
     private Variants variants;
-    private List<Integer> dexId;
-    private int hp;
     private List<String> types;
-    private String evolveFrom;
-    private String description;
     private String stage;
-    private List<Attack> attacks;
-    private List<Weakness> weaknesses;
-    private int retreat;
-    private String regulationMark;
-    private Legal legal;
     private String updated;
     private Pricing pricing;
 
@@ -35,17 +25,8 @@ public class FullCard {
     public String getRarity() { return rarity; }
     public Set getSet() { return set; }
     public Variants getVariants() { return variants; }
-    public List<Integer> getDexId() { return dexId; }
-    public int getHp() { return hp; }
     public List<String> getTypes() { return types; }
-    public String getEvolveFrom() { return evolveFrom; }
-    public String getDescription() { return description; }
     public String getStage() { return stage; }
-    public List<Attack> getAttacks() { return attacks; }
-    public List<Weakness> getWeaknesses() { return weaknesses; }
-    public int getRetreat() { return retreat; }
-    public String getRegulationMark() { return regulationMark; }
-    public Legal getLegal() { return legal; }
     public String getUpdated() { return updated; }
     public Pricing getPricing() { return pricing; }
 
@@ -91,39 +72,11 @@ public class FullCard {
         public boolean isWPromo() { return wPromo; }
     }
 
-    public static class Attack {
-        private List<String> cost;
-        private String name;
-        private String effect;
-        private Integer damage;
-
-        public List<String> getCost() { return cost; }
-        public String getName() { return name; }
-        public String getEffect() { return effect; }
-        public Integer getDamage() { return damage; }
-    }
-
-    public static class Weakness {
-        private String type;
-        private String value;
-
-        public String getType() { return type; }
-        public String getValue() { return value; }
-    }
-
-    public static class Legal {
-        private boolean standard;
-        private boolean expanded;
-
-        public boolean isStandard() { return standard; }
-        public boolean isExpanded() { return expanded; }
-    }
 
     public static class Pricing {
         private PriceData cardmarket;
         private TCGPlayerPrice tcgplayer;
 
-        public PriceData getCardmarket() { return cardmarket; }
         public TCGPlayerPrice getTcgplayer() { return tcgplayer; }
     }
 
@@ -164,11 +117,13 @@ public class FullCard {
         private String unit;
         private PriceType normal;
         private PriceType reverse;
+        private PriceType holofoil;
 
         public String getUpdated() { return updated; }
         public String getUnit() { return unit; }
         public PriceType getNormal() { return normal; }
         public PriceType getReverse() { return reverse; }
+        public PriceType getHolofoil() { return holofoil; }
     }
 
     public static class PriceType {
