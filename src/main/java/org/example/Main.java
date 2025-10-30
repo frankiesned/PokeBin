@@ -1,6 +1,7 @@
 package org.example;
 
 import com.google.gson.*;
+import net.tcgdex.sdk.TCGdex;
 
 import java.util.HashMap;
 
