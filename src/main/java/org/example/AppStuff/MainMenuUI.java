@@ -8,22 +8,28 @@ import java.awt.event.ActionListener;
 
 public class MainMenuUI extends JPanel{
 
-    private JButton manual;
-    private JButton scnnr;
-    private JButton logout;
-    private JButton collection;
+    private SpecialButton manual;
+    private SpecialButton scnnr;
+    private SpecialButton logout;
+    private SpecialButton collection;
 
     MainMenuUI(MainFrame mfrm)
     {
-        manual = new JButton("Manual Input");
-        scnnr = new JButton("Scan Card");
-        logout = new JButton("Logout");
-        collection = new JButton("Collection");
+        setLayout(new GridBagLayout());
 
-        add(manual);
-        add(scnnr);
-        add(collection);
-        add(logout);
+        manual = new SpecialButton("Manual Input", new Color(34, 34,36), new Color(238, 21, 21));
+        scnnr = new SpecialButton("Scan Card", new Color(34, 34,36), new Color(238, 21, 21));
+        logout = new SpecialButton("Logout", new Color(238, 21, 21), new Color(34, 34,36));
+        collection = new SpecialButton("Collection", new Color(34, 34,36), new Color(238, 21, 21));
+
+        JPanel bttnpnl = new JPanel();
+        bttnpnl.setLayout(new GridLayout(4, 1, 10, 10));
+        bttnpnl.add(manual);
+        bttnpnl.add(scnnr);
+        bttnpnl.add(collection);
+        bttnpnl.add(logout);
+
+        add(bttnpnl);
 
         manual.addActionListener(new ActionListener() {
             @Override
@@ -68,6 +74,15 @@ public class MainMenuUI extends JPanel{
                 //}
             }
         });
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.setColor(new Color(238, 21, 21));
+        g.fillPolygon(new int[] {0, getWidth()/2, 0}, new int[] {0, 0, getHeight()/2}, 3);
+        g.setColor(new Color(34, 34,36));
+        g.fillPolygon(new int[] {getWidth(), getWidth(), getWidth()/2}, new int[] {getHeight(), getHeight()/2, getHeight()}, 3);
     }
 
 }

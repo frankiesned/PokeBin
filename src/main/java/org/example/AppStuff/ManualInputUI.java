@@ -8,23 +8,27 @@ import java.awt.event.ActionListener;
 
 public class ManualInputUI extends JPanel{
 
-    private JButton back;
+    private SpecialButton back;
     private JTextField cardID;
     private JTextField cardName;
-    private JButton addcard;
+    private SpecialButton addcard;
     private JLabel errorCard;
 
     ManualInputUI(MainFrame mfrm)
     {
-        back = new JButton("back");
+        setLayout(new GridBagLayout());
+        JPanel inputPanel = new JPanel(new GridLayout(4, 1, 0, 20));
+        back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34,36));
         cardID = new JTextField("Card ID");
         cardName = new JTextField("Card Name");
-        addcard = new JButton("Add Card");
+        addcard = new SpecialButton("Add Card", new Color(34, 34,36), new Color(238, 21, 21));
 
-        add(back);
-        add(cardName);
-        add(cardID);
-        add(addcard);
+        inputPanel.add(back);
+        inputPanel.add(cardName);
+        inputPanel.add(cardID);
+        inputPanel.add(addcard);
+
+        add(inputPanel);
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -48,6 +52,15 @@ public class ManualInputUI extends JPanel{
 
             }
         });
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.setColor(new Color(238, 21, 21));
+        g.fillPolygon(new int[] {0, getWidth()/2, 0}, new int[] {0, 0, getHeight()/2}, 3);
+        g.setColor(new Color(34, 34,36));
+        g.fillPolygon(new int[] {getWidth(), getWidth(), getWidth()/2}, new int[] {getHeight(), getHeight()/2, getHeight()}, 3);
     }
 
 }

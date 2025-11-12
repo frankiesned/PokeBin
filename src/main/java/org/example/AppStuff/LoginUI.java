@@ -11,36 +11,22 @@ import java.security.NoSuchAlgorithmException;
 public class LoginUI extends JPanel{
     private JTextField username;
     private JTextField password;
-    private JButton enterLogin;
+    private SpecialButton enterLogin;
     public LoginUI(MainFrame mfrm)
     {
-        setLayout(new GridLayout(3, 3, (int)(10/*mfrm.getScaler()*/), 10));
+        setLayout(new GridBagLayout());
+
         username = new JTextField("Username");
         password = new JTextField("Password");
-        enterLogin = new JButton("Login");
-        enterLogin.setBackground(new Color(34, 34,36));
-        enterLogin.setForeground(new Color(240, 240, 240));
-        enterLogin.setOpaque(true);
-        enterLogin.setBorderPainted(false);
-        enterLogin.setFocusPainted(false);     // no focus glow
-        enterLogin.setContentAreaFilled(true);
-        add(username);
-        add(password);
-        add(enterLogin);
+        enterLogin = new SpecialButton("Login", new Color(34, 34,36), new Color(238, 21, 21));
 
-        enterLogin.getModel().addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                if(enterLogin.getModel().isPressed())
-                {
-                    enterLogin.setBackground(new Color(238, 21, 21));
-                }
-                else
-                {
-                    enterLogin.setBackground(new Color(34, 34,36));
-                }
-            }
-        });
+        JPanel inputPanel = new JPanel(new GridLayout(3, 1, 10, 10));
+        inputPanel.add(username);
+        inputPanel.add(password);
+        inputPanel.add(enterLogin);
+
+        add(inputPanel);
+
 
         enterLogin.addActionListener(new ActionListener() {
             @Override
@@ -54,6 +40,15 @@ public class LoginUI extends JPanel{
         });
 
 
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.setColor(new Color(238, 21, 21));
+        g.fillPolygon(new int[] {0, getWidth()/2, 0}, new int[] {0, 0, getHeight()/2}, 3);
+        g.setColor(new Color(34, 34,36));
+        g.fillPolygon(new int[] {getWidth(), getWidth(), getWidth()/2}, new int[] {getHeight(), getHeight()/2, getHeight()}, 3);
     }
 
     private boolean CheckAccount() //Checks if the account name and password are in the database, needs JQuery?

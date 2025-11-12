@@ -1,7 +1,5 @@
 package org.example.AppStuff;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,28 +7,55 @@ import java.util.*;
 
 public class CollectionUI extends JPanel{
 
-    private JButton back;
+    private SpecialButton back;
+    private SpecialButton showGraph;
+    private JLabel totValue;
+    private JLabel totCost;
+    private JLabel netWorth;
     private ArrayList<JButton> cardholder = new ArrayList<>();
     private ArrayList<Integer> cardnumtracker = new ArrayList<>();
-    JScrollPane scroller;
+    JScrollPane scrllr;
 
 
 
 
     CollectionUI(MainFrame mfrm)
     {
-        back = new JButton("back");
-        scroller = new JScrollPane(this);
+        setLayout(new BorderLayout());
+
+        JPanel Header = new JPanel(new GridLayout(1, 5));
+        back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34,36));
+        totValue = new JLabel("Total Value:" /*getcard values*/, SwingConstants.CENTER);
+        totValue.setBackground(new Color(34, 34,36));
+        totValue.setForeground(new Color(240, 240, 240));
+        totValue.setOpaque(true);
+        totCost = new JLabel("Total Cost:" /*getcard values*/, SwingConstants.CENTER);
+        totCost.setBackground(new Color(34, 34,36));
+        totCost.setOpaque(true);
+        totCost.setForeground(new Color(240, 240, 240));
+        netWorth = new JLabel("Net Value:" /*getcard values*/, SwingConstants.CENTER);
+        netWorth.setBackground(new Color(34, 34,36));
+        netWorth.setOpaque(true);
+        netWorth.setForeground(new Color(240, 240, 240));
+        showGraph = new SpecialButton("Show Graph", new Color(238, 21, 21), new Color(34, 34,36));
+
+        Header.add(back);
+        Header.add(totValue);
+        Header.add(totCost);
+        Header.add(netWorth);
+        Header.add(showGraph);
+        add(Header, BorderLayout.NORTH);
+
+        JPanel forCards = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        scrllr = new JScrollPane(forCards);
+        scrllr.setBorder(null);
+        scrllr.getVerticalScrollBar().setUnitIncrement(16);
+        add(scrllr, BorderLayout.CENTER);
 
         //add for loop that adds a button to arraylist for each return on the database
         //Arraylist.add(new JButton(NAMEOFPOKEMON, POKEMONIMAGE));
-
-        setLayout(new GridLayout(3, 1));
-        back.setHorizontalAlignment(SwingConstants.LEFT);
-        back.setVerticalAlignment(SwingConstants.TOP);
-        add(back, BorderLayout.NORTH);
         cardholder.forEach(this::add);
-        scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrllr.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         back.addActionListener(new ActionListener() {
             @Override
