@@ -29,7 +29,15 @@ public class MainMenuUI extends JPanel{
         bttnpnl.add(collection);
         bttnpnl.add(logout);
 
-        add(bttnpnl);
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.BOTH;
+        c.gridy = 1;
+
+        add(bttnpnl, c);
 
         manual.addActionListener(new ActionListener() {
             @Override
@@ -70,6 +78,7 @@ public class MainMenuUI extends JPanel{
 
                 //    if(checkAccount()){}
                 //else{
+                mfrm.collectionPanel.refreshCards();
                 mfrm.changepanel("collection");
                 //}
             }

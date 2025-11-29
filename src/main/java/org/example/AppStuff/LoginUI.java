@@ -3,31 +3,50 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class LoginUI extends JPanel{
-    private JTextField username;
-    private JTextField password;
-    private SpecialButton enterLogin;
+    private final JTextField username;
+    private final JTextField password;
+    private final SpecialButton enterLogin;
+    private final SpecialButton newUser;
+    private String usrnme = "Username";
+    private String psswrd = "Password";
+    private final JLabel logo;
+    private JDialog newaccount;
     public LoginUI(MainFrame mfrm)
     {
         setLayout(new GridBagLayout());
 
-        username = new JTextField("Username");
-        password = new JTextField("Password");
+        //all components of the login are added into the input panel
+        username = new JTextField(usrnme);
+        password = new JTextField(psswrd);
         enterLogin = new SpecialButton("Login", new Color(34, 34,36), new Color(238, 21, 21));
+        newUser = new SpecialButton("New Account", new Color(238, 21, 21), new Color(34, 34,36));
+        ImageIcon temp = new ImageIcon("src/main/java/org/example/AppStuff/Logo/pokeball_PNG24.png");
+        logo = new JLabel(new ImageIcon(temp.getImage().getScaledInstance(200, 200, 4)));
+        JPanel inputPanel = new JPanel(new GridLayout(4, 1, 10, 10));
 
-        JPanel inputPanel = new JPanel(new GridLayout(3, 1, 10, 10));
         inputPanel.add(username);
         inputPanel.add(password);
         inputPanel.add(enterLogin);
+        inputPanel.add(newUser);
 
-        add(inputPanel);
+        //input panel added to the login pane/
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.BOTH;
 
+        add(logo, c);
 
+        c.gridy = 1;
+        add(inputPanel, c);
+
+        //when LOGIN button pressed, goes to main menu
         enterLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,9 +58,186 @@ public class LoginUI extends JPanel{
             }
         });
 
+        //when NEW USER pressed, creates a pop-up that allows the user to add their credentials to the database
+        newUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newaccount = new JDialog(mfrm, "New Account");
+                newaccount.setLayout(new GridBagLayout());
+                newaccount.setSize(425, 350);
+                newaccount.setVisible(true);
+
+                JPanel toppnl = new JPanel();
+                JPanel inputpnl = new JPanel(new GridLayout(2, 1, 5, 5));
+                JPanel bttnpnl = new JPanel(new GridLayout(1, 2, 20, 0));
+
+                JLabel enternew = new JLabel("Please Enter New Credentials", SwingConstants.CENTER);
+                toppnl.add(enternew, BorderLayout.PAGE_START);
+
+                JTextField newname = new JTextField(usrnme);
+                JTextField newpassword = new JTextField(psswrd);
+
+                inputpnl.add(newname);
+                inputpnl.add(newpassword);
+
+                SpecialButton ppback = new SpecialButton("Back", new Color(238, 21, 21), new Color(34, 34,36));
+                SpecialButton ppconfirm = new SpecialButton("Confirm", new Color(34, 34,36), new Color(238, 21, 21));
+
+                bttnpnl.add(ppback);
+                bttnpnl.add(ppconfirm);
+
+
+                GridBagConstraints c = new GridBagConstraints();
+                c.gridx = 0;
+                c.gridy = 0;
+
+                c.anchor = GridBagConstraints.PAGE_START;
+                c.fill = GridBagConstraints.BOTH;
+                newaccount.add(toppnl, c);
+
+                c.anchor = GridBagConstraints.CENTER;
+                c.fill = GridBagConstraints.BOTH;
+                newaccount.add(inputpnl, c);
+
+                c.anchor = GridBagConstraints.PAGE_END;
+                c.fill = GridBagConstraints.BOTH;
+                newaccount.add(bttnpnl, c);
+
+                ppback.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        newaccount.dispose();
+                    }
+                });
+
+                //THE DATA BASE NEEDS THIS BUTTON TO TAKE THE NAME AND PASSWORD
+                ppconfirm.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        newaccount.dispose();
+                    }
+                });
+
+
+                //cosmetic actions for NEWUSER popup INPUTS
+                newname.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if (newname.getText().equals("Username")) {
+                            newname.setText("");
+                        }
+                    }
+                });
+
+                newname.addFocusListener(new FocusAdapter() {
+                    @Override
+                    public void focusLost(FocusEvent e) {
+                        String newusrnme = "Username";
+                        if (newname.getText().isEmpty()) {
+                            newname.setText("Username");
+                        } else {
+                            newusrnme = newname.getText();
+                        }
+                    }
+
+                    @Override
+                    public void focusGained(FocusEvent e) {
+                        if (newname.getText().equals("Username")) {
+                            newname.setText("");
+                        }
+                    }
+                });
+
+                newname.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if (newname.getText().equals("Username")) {
+                            newname.setText("");
+                        }
+                    }
+                });
+
+                newpassword.addFocusListener(new FocusAdapter() {
+                    @Override
+                    public void focusLost(FocusEvent e) {
+                        String newpsswrd = "Password";
+                        if (newpassword.getText().isEmpty()) {
+                            newpassword.setText("Password");
+                        } else {
+                            newpsswrd = newpassword.getText();
+                        }
+                    }
+
+                    @Override
+                    public void focusGained(FocusEvent e) {
+                        if (newpassword.getText().equals("Password")) {
+                            newpassword.setText("");
+                        }
+                    }
+                });
+
+
+            }
+        });
+
+        //cosmetic actions for LOGIN popup INPUTS
+        username.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (username.getText().equals("Username")) {
+                    username.setText("");
+                }
+            }
+        });
+
+        username.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (username.getText().isEmpty()) {
+                    username.setText("Username");
+                } else {
+                    usrnme = username.getText(); // only save when real text exists
+                }
+            }
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (username.getText().equals("Username")) {
+                    username.setText("");
+                }
+            }
+        });
+
+        username.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (username.getText().equals("Username")) {
+                    username.setText("");
+                }
+            }
+        });
+
+        password.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (password.getText().isEmpty()) {
+                    password.setText("Password");
+                } else {
+                    psswrd = password.getText();
+                }
+            }
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (password.getText().equals("Password")) {
+                    password.setText("");
+                }
+            }
+        });
 
     }
 
+    //makes the triangles in the background
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -51,7 +247,7 @@ public class LoginUI extends JPanel{
         g.fillPolygon(new int[] {getWidth(), getWidth(), getWidth()/2}, new int[] {getHeight(), getHeight()/2, getHeight()}, 3);
     }
 
-    private boolean CheckAccount() //Checks if the account name and password are in the database, needs JQuery?
+    private boolean CheckAccount() //NEEDS TO BE IMPLIMENTED WITH DATABASE
     {
         return true;
     }

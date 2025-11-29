@@ -1,20 +1,22 @@
-package org.example.AppStuff;
+package org.example.AppStuff.Scanner;
+import org.example.AppStuff.MainFrame;
+import org.example.AppStuff.SpecialButton;
+import net.sourceforge.tess4j.*;
+import org.opencv.core.Core;
+
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ScanUI extends JPanel{
 
-    private SpecialButton back;
 
-    ScanUI(MainFrame mfrm)
+    public ScanUI(MainFrame mfrm)
     {
         setLayout(new BorderLayout());
         JPanel bttnpnl = new JPanel(new GridLayout(1, 1));
-        back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34,36));
+        SpecialButton back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34, 36));
 
         bttnpnl.add(back);
 
@@ -28,6 +30,7 @@ public class ScanUI extends JPanel{
         });
     }
 
+    //makes the triangles in the background
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);

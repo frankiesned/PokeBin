@@ -6,11 +6,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+//special buttons change color when hovered over and when pressed
 public class SpecialButton extends JButton{
 
     private final Color bgcolor;
     private final Color pcolor;
-    SpecialButton(String name, Color backgroupColor, Color pressedColor)
+    public SpecialButton(String name, Color backgroupColor, Color pressedColor)
     {
         super(name);
         bgcolor = backgroupColor;
@@ -30,7 +32,7 @@ public class SpecialButton extends JButton{
         }
         else if (getModel().isRollover())
         {
-            g.setColor(new Color(bgcolor.getRed() + 10, bgcolor.getGreen() + 10, bgcolor.getBlue() + 10));
+            g.setColor(new Color(bgcolor.getRed() + 15, bgcolor.getGreen() + 20, bgcolor.getBlue() + 20));
         }
         else
         {

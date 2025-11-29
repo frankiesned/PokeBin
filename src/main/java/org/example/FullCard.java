@@ -15,6 +15,7 @@ public class FullCard {
     private String stage;
     private String updated;
     private Pricing pricing;
+    private String hashcode;
 
     public String getCategory() { return category; }
     public String getId() { return id; }
@@ -29,9 +30,10 @@ public class FullCard {
     public String getStage() { return stage; }
     public String getUpdated() { return updated; }
     public Pricing getPricing() { return pricing; }
+    public String getHashcode() {return name + id; }
 
 
-    public static class Set {
+    public static class Set {   //card pack
         private CardCount cardCount;
         private String id;
         private String logo;
