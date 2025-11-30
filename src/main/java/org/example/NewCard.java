@@ -58,6 +58,59 @@ public class NewCard {
         return false;
     }
 
+    public static FullCard inputCard(String cardname, String cardID) {
+        //System.out.println("Enter the name of your card");
+        String cname = cardname; //card name
+        String link = "https://api.tcgdex.net/v2/en/cards?name=" + cname;
+        System.out.println("Enter the ID of your card");
+        String cid = cardID; //card id
+        String json = getJson(link);
+
+
+        Card[] card;
+        String fullID = "";
+        boolean found = false;
+        if(json != null){
+            card = new Gson().fromJson(json, Card[].class);
+            for(Card card1 : card){
+                if(card1.getLocalId().equals(cid)){
+                    fullID = card1.getId();
+                    found = true;
+                }
+            }
+        } else{
+            return null;
+        }
+
+
+        FullCard fullcard = null;
+        if (found){
+            link = "https://api.tcgdex.net/v2/en/cards/" + fullID;
+            json = getJson(link);
+            Gson gson2 = new Gson();
+            fullcard = gson2.fromJson(json, FullCard.class);
+            if (fullcard == null) { //dont want to print if there is nothing found
+                System.out.println("Card info is null");
+                return null;
+            }
+            else
+            {
+                System.out.println("Card info is good");
+                return fullcard;
+            }
+
+        }
+        return null;
+//        System.out.println("Would you like to add this card to your collection? (0: no / 1: yes)");
+//        String addcard = sc.nextLine();
+//        if (addcard.equals("1")){
+//            cardMap.put(fullID, fullcard);
+//            holder = fullcard;
+//            return true;
+//        }
+//        return false;
+    }
+
 
     public static String getJson(String link) {
         try {
