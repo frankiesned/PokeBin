@@ -88,8 +88,15 @@ public class MainFrame extends JFrame{
     //deletes a card argument from the frame's Arraylist
     public void deleteCard(FullCard tempcard)
     {
-        collectionCards.remove(tempcard.getHashcode());
-        collectionNums.remove(tempcard.getHashcode());
+        if(collectionNums.get(tempcard.getHashcode()) == 1)
+        {
+            collectionCards.remove(tempcard.getHashcode());
+            collectionNums.remove(tempcard.getHashcode());
+        }
+        else
+        {
+            collectionNums.replace(tempcard.getHashcode(), collectionNums.get(tempcard.getHashcode()) - 1);
+        }
     }
 
 }

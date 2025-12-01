@@ -146,6 +146,7 @@ public class CollectionUI extends JPanel {
                     values += 0;
                 }
             }
+            values *= mfrm.GetCardAmount(fullcard);
         }
         totValue.setText("Total Value: " + values);
         Header.add(totValue);

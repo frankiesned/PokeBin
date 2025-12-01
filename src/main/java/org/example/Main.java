@@ -3,6 +3,7 @@ package org.example;
 import com.google.gson.*;
 import net.tcgdex.sdk.TCGdex;
 import org.example.AppStuff.MainFrame;
+import org.opencv.core.Core;
 
 import java.util.HashMap;
 
@@ -14,7 +15,7 @@ public class Main {
 
     //GET https://api.tcgdex.net/v2/en/cards?name=zekrom
     public static void main(String[] args) {
-
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         new MainFrame();
         //ID will be key and it will find the card class
 //        HashMap<String,FullCard> cardMap = new HashMap<>();

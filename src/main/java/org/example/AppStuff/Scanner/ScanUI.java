@@ -3,6 +3,7 @@ import org.example.AppStuff.MainFrame;
 import org.example.AppStuff.SpecialButton;
 import net.sourceforge.tess4j.*;
 import org.opencv.core.Core;
+import org.opencv.core.Mat;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,24 +12,31 @@ import java.awt.event.ActionListener;
 
 public class ScanUI extends JPanel{
 
+    private Camera cam;
+
 
     public ScanUI(MainFrame mfrm)
     {
         setLayout(new BorderLayout());
         JPanel bttnpnl = new JPanel(new GridLayout(1, 1));
         SpecialButton back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34, 36));
+        cam = new Camera();
+        System.out.println("stinky3");
 
         bttnpnl.add(back);
 
         add(bttnpnl, BorderLayout.NORTH);
+        add(cam, BorderLayout.CENTER);
 
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                cam.stopCamera();
                 mfrm.changepanel("Main");
             }
         });
     }
+
 
     //makes the triangles in the background
     @Override

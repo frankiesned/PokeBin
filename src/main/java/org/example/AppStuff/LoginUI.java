@@ -63,22 +63,28 @@ public class LoginUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 newaccount = new JDialog(mfrm, "New Account");
-                newaccount.setLayout(new GridBagLayout());
-                newaccount.setSize(425, 350);
+                newaccount.setLayout(new BorderLayout());
+                newaccount.setSize(400, 400);
                 newaccount.setVisible(true);
 
                 JPanel toppnl = new JPanel();
-                JPanel inputpnl = new JPanel(new GridLayout(2, 1, 5, 5));
+                JPanel inputpnl = new JPanel(new GridBagLayout());
                 JPanel bttnpnl = new JPanel(new GridLayout(1, 2, 20, 0));
 
-                JLabel enternew = new JLabel("Please Enter New Credentials", SwingConstants.CENTER);
-                toppnl.add(enternew, BorderLayout.PAGE_START);
+                toppnl.add(new JLabel("Please Enter New Credentials", SwingConstants.CENTER), BorderLayout.PAGE_START);
 
                 JTextField newname = new JTextField(usrnme);
                 JTextField newpassword = new JTextField(psswrd);
 
-                inputpnl.add(newname);
-                inputpnl.add(newpassword);
+                GridBagConstraints c = new GridBagConstraints();
+                c.gridx = 0;
+                c.gridy = 0;
+
+                c.anchor = GridBagConstraints.PAGE_START;
+                inputpnl.add(newname, c);
+
+                c.gridy = 1;
+                inputpnl.add(newpassword, c);
 
                 SpecialButton ppback = new SpecialButton("Back", new Color(238, 21, 21), new Color(34, 34,36));
                 SpecialButton ppconfirm = new SpecialButton("Confirm", new Color(34, 34,36), new Color(238, 21, 21));
@@ -86,22 +92,9 @@ public class LoginUI extends JPanel{
                 bttnpnl.add(ppback);
                 bttnpnl.add(ppconfirm);
 
-
-                GridBagConstraints c = new GridBagConstraints();
-                c.gridx = 0;
-                c.gridy = 0;
-
-                c.anchor = GridBagConstraints.PAGE_START;
-                c.fill = GridBagConstraints.BOTH;
-                newaccount.add(toppnl, c);
-
-                c.anchor = GridBagConstraints.CENTER;
-                c.fill = GridBagConstraints.BOTH;
-                newaccount.add(inputpnl, c);
-
-                c.anchor = GridBagConstraints.PAGE_END;
-                c.fill = GridBagConstraints.BOTH;
-                newaccount.add(bttnpnl, c);
+                newaccount.add(toppnl, BorderLayout.PAGE_START);
+                newaccount.add(inputpnl, BorderLayout.CENTER);
+                newaccount.add(bttnpnl, BorderLayout.PAGE_END);
 
                 ppback.addActionListener(new ActionListener() {
                     @Override

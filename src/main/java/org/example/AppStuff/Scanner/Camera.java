@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.File;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,12 @@ import javax.swing.JLabel;
 
 import javax.swing.JOptionPane;
 
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
 import org.example.AppStuff.SpecialButton;
+import org.example.FullCard;
+import org.example.NewCard;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -33,6 +39,10 @@ public class Camera extends JPanel
     private Mat name;
     private Mat number;
     private Timer timer;
+    private boolean camrun = true;
+    private Mat tempframe;
+    private JLabel errorlab;
+    private FullCard actcard;
 
     public Camera()
     {
@@ -46,6 +56,7 @@ public class Camera extends JPanel
         add(instruct);
         c.anchor = GridBagConstraints.CENTER;
         capture = new VideoCapture(0);
+        tempframe = new Mat();
         camlab = new JLabel();
         add(camlab);
         c.anchor = GridBagConstraints.PAGE_END;
@@ -62,8 +73,10 @@ public class Camera extends JPanel
             {
                 card = new Mat();
                 capture.read(card);
-                Imgcodecs.imwrite("poke.png", card);
-                getCardParts("poke.png");
+                Imgcodecs.imwrite("src/main/java/org/example/AppStuff/Logo/poke.png", card);
+                getCardParts("src/main/java/org/example/AppStuff/Logo/poke.png");
+                actcard = findcard();
+
             }
         });
 
@@ -76,22 +89,13 @@ public class Camera extends JPanel
             capture.read(card);
             if (!card.empty())
             {
-                Image imageToShow = matToBufferedImage(card);
-                camlab.setIcon(new ImageIcon(imageToShow));
+                Image tempimage = mattoimage(card);
+                camlab.setIcon(new ImageIcon(tempimage));
             }
         }
     }
 
-    private void captureImage()
-    {
-        if (!card.empty())
-        {
-            Imgcodecs.imwrite("captured_card.png", card);
-            System.out.println("Saved captured_card.png");
-        }
-    }
-
-    private BufferedImage matToBufferedImage(Mat mat)
+    private BufferedImage mattoimage(Mat mat)
     {
 
         int type = BufferedImage.TYPE_3BYTE_BGR;
@@ -104,11 +108,11 @@ public class Camera extends JPanel
         byte[] b = new byte[bufferSize];
         mat.get(0, 0, b);
 
-        BufferedImage image = new BufferedImage(mat.cols(), mat.rows(), type);
-        byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        System.arraycopy(b, 0, targetPixels, 0, b.length);
+        BufferedImage tempimage = new BufferedImage(mat.cols(), mat.rows(), type);
+        byte[] target = ((DataBufferByte) tempimage.getRaster().getDataBuffer()).getData();
+        mat.get(0, 0, target);
 
-        return image;
+        return tempimage;
     }
 
     public void stopCamera()
@@ -125,21 +129,40 @@ public class Camera extends JPanel
         Imgproc.cvtColor(temp, temp, Imgproc.COLOR_BGR2GRAY);
         Imgproc.GaussianBlur(temp, temp, new Size(3, 3), 0);
         Imgproc.threshold(temp, temp, 120, 255, Imgproc.THRESH_BINARY);
-        Mat[] matHolder = new Mat[2];
         name = new Mat(temp, new Rect(0,0,temp.width(), (int)(temp.height() * 0.18)));
-        number = new Mat(temp, new Rect(0, (int)(temp.height()*0.82), temp.width(), (int)(temp.width() * 0.18)));
+        number = new Mat(temp, new Rect(0, (int)(temp.height()*0.82), temp.width(), (int)(temp.height() * 0.18)));
     }
 
-    public Mat getcardname()
+    private FullCard findcard()
     {
-        return name;
+
+        if(name == null || number == null)
+        {
+            errorlab = new JLabel("not working, please us manual input");
+        }
+
+        Imgcodecs.imwrite("src/main/java/org/example/AppStuff/Logo/tempname.png", name);
+        Imgcodecs.imwrite("src/main/java/org/example/AppStuff/Logo/tempid.png", number);
+
+        FullCard tempcard = NewCard.inputCard(gettexts("src/main/java/org/example/AppStuff/Logo/tempname.png"), gettexts("src/main/java/org/example/AppStuff/Logo/tempid.png"));
+        return tempcard;
+
     }
 
-    public Mat getcardnumber()
+    private String gettexts(String file)
     {
-        return number;
+        ITesseract tess = new Tesseract();
+        tess.setDatapath(System.getenv("TESSDATA_PREFIX") + "tessdata"); //CHANGE THIS TO "C:\WHERE EVER\Tesseract-OCR\tessdata"
+        tess.setLanguage("eng");
+        try
+        {
+            return tess.doOCR(new File(file)).trim();
+        }
+        catch (TesseractException e)
+        {
+            return "stinkyerror";
+        }
     }
-
 
 
 }
