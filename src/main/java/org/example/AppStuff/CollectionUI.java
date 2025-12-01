@@ -164,7 +164,7 @@ public class CollectionUI extends JPanel {
                 {
                     popup = new JDialog(mfrm, "Card Popup");
                     popup.setLayout(new BorderLayout());
-                    popup.setSize(500, 300);
+                    popup.setSize(425, 350);
                     popup.setVisible(true);
 
 
