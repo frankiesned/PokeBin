@@ -32,10 +32,10 @@ public class ManualInputUI extends JPanel{
 
         //adds all user components to the inputpanel: add card, back, CARDID text input, CARDNAME text input
         JPanel inputPanel = new JPanel(new GridLayout(4, 1, 0, 20));
-        back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34,36));
+        back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34,36), mfrm.maincolor);
         cardID = new JTextField(cid);
         cardName = new JTextField(cname);
-        addcard = new SpecialButton("Add Card", new Color(34, 34,36), new Color(238, 21, 21));
+        addcard = new SpecialButton("Add Card", new Color(34, 34,36), new Color(238, 21, 21), mfrm.maincolor);
 
         inputPanel.add(back);
         inputPanel.add(cardName);
@@ -86,7 +86,7 @@ public class ManualInputUI extends JPanel{
                     JPanel errorpnl = new JPanel(new GridLayout(2, 1, 0, 50));
 
                     JLabel errorlab = new JLabel("This card is invalid\n please re-enter the card Information");
-                    SpecialButton errorbttn = new SpecialButton("Back", new Color(238, 21, 21), new Color(34, 34,36));
+                    SpecialButton errorbttn = new SpecialButton("Back", new Color(238, 21, 21), new Color(34, 34,36), mfrm.maincolor);
 
                     errorpnl.add(errorlab);
                     errorpnl.add(errorbttn);
@@ -113,8 +113,8 @@ public class ManualInputUI extends JPanel{
                     SingleCardPanel mainpnl = new SingleCardPanel(tempcard, mfrm.GetCardAmount(tempcard)); //single card panel displays all the relevant card information
 
                     JPanel bttnpnl = new JPanel(new GridLayout(1, 2, 20, 0));
-                    SpecialButton addcollect = new SpecialButton("Yes", new Color(34, 34,36), new Color(238, 21, 21));
-                    SpecialButton canceladd = new SpecialButton("No", new Color(238, 21, 21), new Color(34, 34,36));
+                    SpecialButton addcollect = new SpecialButton("Yes", new Color(34, 34,36), new Color(238, 21, 21), mfrm.maincolor);
+                    SpecialButton canceladd = new SpecialButton("No", new Color(238, 21, 21), new Color(34, 34,36), mfrm.maincolor);
                     bttnpnl.add(addcollect);
                     bttnpnl.add(canceladd);
 

@@ -12,15 +12,17 @@ public class MainMenuUI extends JPanel{
     private SpecialButton scnnr;
     private SpecialButton logout;
     private SpecialButton collection;
+    private MainFrame mfrm;
 
     MainMenuUI(MainFrame mfrm)
     {
+        this.mfrm = mfrm;
         setLayout(new GridBagLayout());
 
-        manual = new SpecialButton("Manual Input", new Color(34, 34,36), new Color(238, 21, 21));
-        scnnr = new SpecialButton("Scan Card", new Color(34, 34,36), new Color(238, 21, 21));
-        logout = new SpecialButton("Logout", new Color(238, 21, 21), new Color(34, 34,36));
-        collection = new SpecialButton("Collection", new Color(34, 34,36), new Color(238, 21, 21));
+        manual = new SpecialButton("Manual Input", mfrm.coloraccent2, mfrm.coloraccent1, mfrm.maincolor);
+        scnnr = new SpecialButton("Scan Card", mfrm.coloraccent2, mfrm.coloraccent1, mfrm.maincolor);
+        logout = new SpecialButton("Logout", mfrm.coloraccent1, mfrm.coloraccent2, mfrm.maincolor);
+        collection = new SpecialButton("Collection", mfrm.coloraccent2, mfrm.coloraccent1, mfrm.maincolor);
 
         JPanel bttnpnl = new JPanel();
         bttnpnl.setLayout(new GridLayout(4, 1, 10, 10));
@@ -83,14 +85,16 @@ public class MainMenuUI extends JPanel{
                 //}
             }
         });
+
+
     }
 
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.setColor(new Color(238, 21, 21));
+        g.setColor(mfrm.coloraccent1);
         g.fillPolygon(new int[] {0, getWidth()/2, 0}, new int[] {0, 0, getHeight()/2}, 3);
-        g.setColor(new Color(34, 34,36));
+        g.setColor(mfrm.coloraccent2);
         g.fillPolygon(new int[] {getWidth(), getWidth(), getWidth()/2}, new int[] {getHeight(), getHeight()/2, getHeight()}, 3);
     }
 

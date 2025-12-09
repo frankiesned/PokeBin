@@ -1,3 +1,5 @@
+package org.example;
+
 import java.io.*;
 import java.util.*;
 import java.io.BufferedReader;
@@ -26,13 +28,13 @@ public class Database {
     public class Card {
         public int cardId;
         public String name;
-        public String type;
+        public String uniq;
         public int power;
 
-        public Card(int cardId, String name, String type, int power) {
+        public Card(int cardId, String name, String uniq, int power) {
             this.cardId = cardId;
             this.name = name;
-            this.type = type;
+            this.uniq = uniq;
             this.power = power;
         }
     }
@@ -124,6 +126,29 @@ public class Database {
 
     public User getUserById(int id) {
         return users.get(id);
+    }
+
+    public int getIdByUser(String nm, String pw)
+    {
+        for(Integer key: users.keySet())
+        {
+            if(users.get(key).username.equals(nm) && users.get(key).password.equals(pw))
+            {
+                return key;
+            }
+        }
+        return 0;
+    }
+
+    public boolean UserinDB(String nm, String pw) {
+        for(User us: users.values())
+        {
+            if(us.username.equals(nm) && us.password.equals(pw))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Card getCardById(int id) {

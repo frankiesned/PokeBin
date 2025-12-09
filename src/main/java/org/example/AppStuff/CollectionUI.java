@@ -33,7 +33,7 @@ public class CollectionUI extends JPanel {
         //all top panel: back button, analytics
         Header = new JPanel(new GridLayout(1, 4));
 
-        back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34, 36));
+        back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34, 36), mfrm.maincolor);
 
         totValue = new JLabel("Total Value:", SwingConstants.CENTER);
         totValue.setBackground(new Color(34, 34, 36));
@@ -171,8 +171,8 @@ public class CollectionUI extends JPanel {
                     SingleCardPanel mainpnl = new SingleCardPanel(card, mfrm.GetCardAmount(card));
 
                     JPanel bttnpnl = new JPanel(new GridLayout(1, 2, 20, 0));
-                    JButton deleteCard = new JButton("Delete Card?");
-                    JButton backbttn = new JButton("Back");
+                    SpecialButton deleteCard = new SpecialButton("Delete Card?", mfrm.coloraccent2, mfrm.coloraccent1, mfrm.maincolor);
+                    SpecialButton backbttn = new SpecialButton("Back", mfrm.coloraccent1, mfrm.coloraccent2, mfrm.maincolor);
                     bttnpnl.add(deleteCard);
                     bttnpnl.add(backbttn);
 

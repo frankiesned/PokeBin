@@ -19,8 +19,8 @@ public class ScanUI extends JPanel{
     {
         setLayout(new BorderLayout());
         JPanel bttnpnl = new JPanel(new GridLayout(1, 1));
-        SpecialButton back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34, 36));
-        cam = new Camera();
+        SpecialButton back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34, 36), mfrm.maincolor);
+        cam = new Camera(mfrm);
         System.out.println("stinky3");
 
         bttnpnl.add(back);
@@ -31,7 +31,6 @@ public class ScanUI extends JPanel{
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cam.stopCamera();
                 mfrm.changepanel("Main");
             }
         });

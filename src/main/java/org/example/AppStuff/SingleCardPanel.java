@@ -12,7 +12,7 @@ import static java.lang.String.valueOf;
 public class SingleCardPanel extends JPanel {
 
     private Image ogimage;
-    SingleCardPanel(FullCard tempcard, int possession) {
+    public SingleCardPanel(FullCard tempcard, int possession) {
         setLayout(new GridLayout(1, 2, 0, 5));
         try {
             ImageIcon pokeimage = new ImageIcon(new URL(tempcard.getImage() + "/high.png"));

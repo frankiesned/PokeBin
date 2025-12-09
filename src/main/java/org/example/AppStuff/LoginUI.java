@@ -1,4 +1,6 @@
 package org.example.AppStuff;
+import org.example.Database;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -12,22 +14,30 @@ public class LoginUI extends JPanel{
     private final JTextField password;
     private final SpecialButton enterLogin;
     private final SpecialButton newUser;
+    //private SpecialButton darkmodebttn;
     private String usrnme = "Username";
     private String psswrd = "Password";
     private final JLabel logo;
     private JDialog newaccount;
+    private MainFrame mfrm;
     public LoginUI(MainFrame mfrm)
     {
+        this.mfrm = mfrm;
         setLayout(new GridBagLayout());
+
 
         //all components of the login are added into the input panel
         username = new JTextField(usrnme);
         password = new JTextField(psswrd);
-        enterLogin = new SpecialButton("Login", new Color(34, 34,36), new Color(238, 21, 21));
-        newUser = new SpecialButton("New Account", new Color(238, 21, 21), new Color(34, 34,36));
+        enterLogin = new SpecialButton("Login", mfrm.coloraccent2, mfrm.coloraccent1, mfrm.maincolor);
+        newUser = new SpecialButton("New Account", mfrm.coloraccent1, mfrm.coloraccent2, mfrm.maincolor);
+        //darkmodebttn = new SpecialButton("Luxury Mode", mfrm.coloraccent2, mfrm.coloraccent1, mfrm.maincolor);
         ImageIcon temp = new ImageIcon("src/main/java/org/example/AppStuff/Logo/pokeball_PNG24.png");
         logo = new JLabel(new ImageIcon(temp.getImage().getScaledInstance(200, 200, 4)));
         JPanel inputPanel = new JPanel(new GridLayout(4, 1, 10, 10));
+        //JPanel topbar = new JPanel(new BorderLayout());
+        //topbar.setOpaque(false);
+        //topbar.add(darkmodebttn, BorderLayout.EAST);
 
         inputPanel.add(username);
         inputPanel.add(password);
@@ -39,22 +49,44 @@ public class LoginUI extends JPanel{
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.PAGE_START;
-        c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.VERTICAL;
 
         add(logo, c);
 
         c.gridy = 1;
         add(inputPanel, c);
 
+//        c.gridx = 0;
+//        c.gridy = 0;
+//        c.weightx = 1.0;
+//        c.anchor = GridBagConstraints.FIRST_LINE_END;
+//        c.fill = GridBagConstraints.HORIZONTAL;
+//        add(topbar, c);
+
         //when LOGIN button pressed, goes to main menu
         enterLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //    if(checkAccount()){}
-                //else{
-                mfrm.changepanel("Main");
-                //}
+                if(!mfrm.db.UserinDB(username.getText(), password.getText()))
+                {
+
+                }
+                else{
+                    mfrm.userID = mfrm.db.getIdByUser(username.getText(), password.getText());
+                    System.out.print(mfrm.userID);
+                    for (Database.CollectionItem itm : mfrm.db.getUserCollection(mfrm.userID)) {
+
+                        if (itm.card == null) {
+                            System.out.println("ERROR: Bad collection entry for user " + mfrm.userID);
+                            continue;
+                        }
+
+                        mfrm.addToCollectFromDB(itm.card.name, itm.card.uniq);
+                        mfrm.addToCollectNumsFromDB(itm.card.name, itm.card.uniq, itm.numOf);
+                    }
+                    mfrm.changepanel("Main");
+                }
             }
         });
 
@@ -86,8 +118,8 @@ public class LoginUI extends JPanel{
                 c.gridy = 1;
                 inputpnl.add(newpassword, c);
 
-                SpecialButton ppback = new SpecialButton("Back", new Color(238, 21, 21), new Color(34, 34,36));
-                SpecialButton ppconfirm = new SpecialButton("Confirm", new Color(34, 34,36), new Color(238, 21, 21));
+                SpecialButton ppback = new SpecialButton("Back", mfrm.coloraccent1, mfrm.coloraccent2, mfrm.maincolor);
+                SpecialButton ppconfirm = new SpecialButton("Confirm", mfrm.coloraccent2, mfrm.coloraccent1, mfrm.maincolor);
 
                 bttnpnl.add(ppback);
                 bttnpnl.add(ppconfirm);
@@ -107,6 +139,7 @@ public class LoginUI extends JPanel{
                 ppconfirm.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        mfrm.db.addUser(newname.getText(), newpassword.getText());
                         newaccount.dispose();
                     }
                 });
@@ -210,6 +243,13 @@ public class LoginUI extends JPanel{
             }
         });
 
+//        darkmodebttn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mfrm.changedarkmode();
+//            }
+//        });
+
         password.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -234,9 +274,9 @@ public class LoginUI extends JPanel{
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.setColor(new Color(238, 21, 21));
+        g.setColor(mfrm.coloraccent1);
         g.fillPolygon(new int[] {0, getWidth()/2, 0}, new int[] {0, 0, getHeight()/2}, 3);
-        g.setColor(new Color(34, 34,36));
+        g.setColor(mfrm.coloraccent2);
         g.fillPolygon(new int[] {getWidth(), getWidth(), getWidth()/2}, new int[] {getHeight(), getHeight()/2, getHeight()}, 3);
     }
 
