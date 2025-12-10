@@ -196,7 +196,7 @@ public class Camera extends JPanel {
                             public void actionPerformed(ActionEvent e) {
                                 //WHEN DATABASE
                                 mfrm.addToCollect(tempcard);
-                                System.out.println("added");
+                                //System.out.println("added");
                                 popup.dispose();
                             }
                         });

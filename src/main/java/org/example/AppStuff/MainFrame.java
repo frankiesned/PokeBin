@@ -25,28 +25,37 @@ import java.util.Map;
 
 public class MainFrame extends JFrame{
 
+    //general frame
     private JPanel mpnl;
+    private CardLayout clayout;
+
+    //darkmode
+    private boolean darkmode = false;
+
+    //local storage
+    private HashMap<String, Integer> collectionNums = new HashMap<String, Integer>(); //holds the number of a particular type of card
+    private HashMap<String, FullCard> collectionCards = new HashMap<String, FullCard>(); //holds the cards
+
+    //standard color schemes
+    public Color maincolor = new Color(240, 240, 240);
+    public Color coloraccent1 = new Color(238, 21, 21);
+    public Color coloraccent2 = new Color(34, 34,36);
+
+    //database
+    public Database db = new Database();
+    public int userID = 0;
+
+    //UI panels
     LoginUI loginPanel;
     MainMenuUI mainMenuPanel;
     CollectionUI collectionPanel;
     ManualInputUI manualInputPanel;
     ScanUI scanCardPanel;
-    private CardLayout clayout;
-    public Color maincolor = new Color(240, 240, 240);
-    public Color coloraccent1 = new Color(238, 21, 21);
-    public Color coloraccent2 = new Color(34, 34,36);
-    private boolean darkmode = false;
-    public Database db = new Database();
-    public int userID = 0;
-
-    //WITH DATABASE THESE SHOULD BE FILLED AFTER LOGIN
-    private HashMap<String, Integer> collectionNums = new HashMap<String, Integer>(); //holds the number of a particular type of card
-    private HashMap<String, FullCard> collectionCards = new HashMap<String, FullCard>(); //holds the cards
 
     public MainFrame() {
 
 
-        //database part
+        //loading database files
         try
         {
             db.loadUsers("src/main/java/org/example/users");
@@ -79,31 +88,15 @@ public class MainFrame extends JFrame{
         add(mpnl);
         clayout.show(mpnl, "login");
         setVisible(true);
-//BROKEN PMO
-//        addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                for(String temp : collectionCards.keySet())
-//                {
-//                    db.addOrUpdateCard(userID, nametonum.get(collectionCards.get(temp).getName()), collectionNums.get(temp));
-//                }
-//                try {
-//                    db.saveCollections("src/main/java/org/example/card holders");
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
-//                super.windowClosing(e);
-//            }
-//        });
     }
 
 
     //takes the panel name as input, each panel needs to go through the frame object parameter to change, slightly faster
     public void changepanel(String name)
     {
+
         CardLayout cl = (CardLayout) mpnl.getLayout();
         cl.show(mpnl, String.valueOf(name));
-
     }
 
 

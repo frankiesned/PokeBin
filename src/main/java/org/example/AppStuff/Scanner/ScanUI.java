@@ -21,7 +21,7 @@ public class ScanUI extends JPanel{
         JPanel bttnpnl = new JPanel(new GridLayout(1, 1));
         SpecialButton back = new SpecialButton("back", new Color(238, 21, 21), new Color(34, 34, 36), mfrm.maincolor);
         cam = new Camera(mfrm);
-        System.out.println("stinky3");
+        //System.out.println("stinky3");
 
         bttnpnl.add(back);
 

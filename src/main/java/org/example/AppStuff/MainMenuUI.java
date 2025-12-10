@@ -45,10 +45,7 @@ public class MainMenuUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //    if(checkAccount()){}
-                //else{
                 mfrm.changepanel("manualinput");
-                //}
             }
         });
 
@@ -56,10 +53,7 @@ public class MainMenuUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //    if(checkAccount()){}
-                //else{
                 mfrm.changepanel("scan");
-                //}
             }
         });
 
@@ -67,10 +61,7 @@ public class MainMenuUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //    if(checkAccount()){}
-                //else{
                 mfrm.changepanel("login");
-                //}
             }
         });
 
@@ -78,11 +69,8 @@ public class MainMenuUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //    if(checkAccount()){}
-                //else{
                 mfrm.collectionPanel.refreshCards();
                 mfrm.changepanel("collection");
-                //}
             }
         });
 

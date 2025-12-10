@@ -130,7 +130,7 @@ public class ManualInputUI extends JPanel{
                             //WHEN DATABASE
                             successtext.setVisible(true);
                             mfrm.addToCollect(tempcard);
-                            System.out.println("added");
+                            //System.out.println("added");
                             popup.dispose();
                         }
                     });

@@ -13,6 +13,7 @@ public class SingleCardPanel extends JPanel {
 
     private Image ogimage;
     public SingleCardPanel(FullCard tempcard, int possession) {
+
         setLayout(new GridLayout(1, 2, 0, 5));
         try {
             ImageIcon pokeimage = new ImageIcon(new URL(tempcard.getImage() + "/high.png"));
@@ -27,11 +28,14 @@ public class SingleCardPanel extends JPanel {
         infopnl.add(new JLabel("ID: " + tempcard.getId(), SwingConstants.CENTER));
         infopnl.add(new JLabel("Rarity: " + tempcard.getRarity(), SwingConstants.CENTER));
         infopnl.add(new JLabel("Pack: " + tempcard.getSet().getName(), SwingConstants.CENTER));
+
         FullCard.TCGPlayerPrice tcgplay = tempcard.getPricing().getTcgplayer();
+
         JLabel pokeVariants;
         JLabel pokemarkprice;
         JLabel pokehighprice;
         if (tcgplay == null) {
+
             pokeVariants = new JLabel("Variant: NA", SwingConstants.CENTER);
             pokemarkprice = new JLabel("Market Price: NA", SwingConstants.CENTER);
             pokehighprice = new JLabel("High Price: NA", SwingConstants.CENTER);

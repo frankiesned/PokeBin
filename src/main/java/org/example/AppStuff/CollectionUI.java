@@ -60,7 +60,7 @@ public class CollectionUI extends JPanel {
         scrllr.getVerticalScrollBar().setUnitIncrement(16);
         add(scrllr, BorderLayout.CENTER);
         refreshCards();
-        System.out.println("stinky2");
+        //System.out.println("stinky2");
 
         scrllr.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 

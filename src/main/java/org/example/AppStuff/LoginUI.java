@@ -74,11 +74,11 @@ public class LoginUI extends JPanel{
                 }
                 else{
                     mfrm.userID = mfrm.db.getIdByUser(username.getText(), password.getText());
-                    System.out.print(mfrm.userID);
+                    //System.out.print(mfrm.userID);
                     for (Database.CollectionItem itm : mfrm.db.getUserCollection(mfrm.userID)) {
 
                         if (itm.card == null) {
-                            System.out.println("ERROR: Bad collection entry for user " + mfrm.userID);
+                            //System.out.println("ERROR: Bad collection entry for user " + mfrm.userID);
                             continue;
                         }
 
