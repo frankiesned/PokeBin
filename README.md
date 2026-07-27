@@ -1,5 +1,5 @@
 # CS370 Software Engineering Group Project
-Please refer to **PokeBin Design.docx** for full projects details.
+Please refer to **PokeBin Design.pdf** for full projects details.
 
 # Group Members
 Frankie Snedecor
